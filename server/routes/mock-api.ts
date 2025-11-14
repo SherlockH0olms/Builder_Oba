@@ -83,12 +83,12 @@ export const verifyToken: RequestHandler = (req, res, next) => {
     return res.status(401).json({ detail: "Not authenticated" });
   }
 
-  try {
-    jwt.verify(token, SECRET_KEY);
-    next();
-  } catch {
+  // Simple token validation - in production use proper JWT
+  if (!token.startsWith("mock_token_")) {
     return res.status(401).json({ detail: "Invalid token" });
   }
+
+  next();
 };
 
 // Login endpoint
@@ -100,10 +100,8 @@ export const handleLogin: RequestHandler = (req, res) => {
     return res.status(400).json({ detail: "Missing username or password" });
   }
 
-  // Create a mock token
-  const token = jwt.sign({ username, role: "user" }, SECRET_KEY, {
-    expiresIn: "24h",
-  });
+  // Create a simple mock token
+  const token = `mock_token_${Buffer.from(username).toString("base64")}_${Date.now()}`;
 
   res.json({
     access_token: token,
