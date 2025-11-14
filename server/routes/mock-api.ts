@@ -1,5 +1,4 @@
 import { RequestHandler } from "express";
-import jwt from "jsonwebtoken";
 
 const SECRET_KEY = "your-secret-key-change-this-in-production";
 
