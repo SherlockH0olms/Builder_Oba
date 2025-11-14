@@ -111,7 +111,7 @@ export default function Login() {
               </Button>
 
               <p className="text-xs text-slate-400 text-center mt-4">
-                Demo: Use test credentials provided by your administrator
+                Demo: Use any username and password to test
               </p>
             </form>
           </CardContent>
