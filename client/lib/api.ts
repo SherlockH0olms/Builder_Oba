@@ -102,9 +102,7 @@ class ApiClient {
       }
 
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(
-        errorData.detail || `API Error: ${response.statusText}`
-      );
+      throw new Error(errorData.detail || `API Error: ${response.statusText}`);
     }
 
     if (response.status === 204) {
@@ -114,10 +112,7 @@ class ApiClient {
     return response.json();
   }
 
-  async login(
-    username: string,
-    password: string
-  ): Promise<LoginResponse> {
+  async login(username: string, password: string): Promise<LoginResponse> {
     const response = await fetch(`${this.baseURL}/api/auth/login`, {
       method: "POST",
       headers: this.getHeaders(),
@@ -140,7 +135,7 @@ class ApiClient {
     skip = 0,
     limit = 100,
     channel?: string,
-    status?: string
+    status?: string,
   ): Promise<Message[]> {
     const params = new URLSearchParams({
       skip: String(skip),
@@ -155,7 +150,7 @@ class ApiClient {
       {
         method: "GET",
         headers: this.getHeaders(),
-      }
+      },
     );
 
     return this.handleResponse<Message[]>(response);
@@ -174,7 +169,7 @@ class ApiClient {
     channel: string,
     senderId: string,
     senderName: string,
-    messageText: string
+    messageText: string,
   ): Promise<Message> {
     const response = await fetch(`${this.baseURL}/api/messages`, {
       method: "POST",
@@ -192,7 +187,7 @@ class ApiClient {
 
   async updateMessage(
     messageId: number,
-    data: Partial<Message>
+    data: Partial<Message>,
   ): Promise<Message> {
     const response = await fetch(`${this.baseURL}/api/messages/${messageId}`, {
       method: "PUT",
@@ -223,17 +218,20 @@ class ApiClient {
       {
         method: "GET",
         headers: this.getHeaders(),
-      }
+      },
     );
 
     return this.handleResponse<Customer[]>(response);
   }
 
   async getCustomerById(customerId: number): Promise<Customer> {
-    const response = await fetch(`${this.baseURL}/api/customers/${customerId}`, {
-      method: "GET",
-      headers: this.getHeaders(),
-    });
+    const response = await fetch(
+      `${this.baseURL}/api/customers/${customerId}`,
+      {
+        method: "GET",
+        headers: this.getHeaders(),
+      },
+    );
 
     return this.handleResponse<Customer>(response);
   }
@@ -248,21 +246,30 @@ class ApiClient {
     return this.handleResponse<Customer>(response);
   }
 
-  async updateCustomer(customerId: number, data: Partial<Customer>): Promise<Customer> {
-    const response = await fetch(`${this.baseURL}/api/customers/${customerId}`, {
-      method: "PUT",
-      headers: this.getHeaders(),
-      body: JSON.stringify(data),
-    });
+  async updateCustomer(
+    customerId: number,
+    data: Partial<Customer>,
+  ): Promise<Customer> {
+    const response = await fetch(
+      `${this.baseURL}/api/customers/${customerId}`,
+      {
+        method: "PUT",
+        headers: this.getHeaders(),
+        body: JSON.stringify(data),
+      },
+    );
 
     return this.handleResponse<Customer>(response);
   }
 
   async deleteCustomer(customerId: number): Promise<void> {
-    const response = await fetch(`${this.baseURL}/api/customers/${customerId}`, {
-      method: "DELETE",
-      headers: this.getHeaders(),
-    });
+    const response = await fetch(
+      `${this.baseURL}/api/customers/${customerId}`,
+      {
+        method: "DELETE",
+        headers: this.getHeaders(),
+      },
+    );
 
     return this.handleResponse<void>(response);
   }

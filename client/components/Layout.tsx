@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -83,7 +79,7 @@ export default function Layout({ children }: LayoutProps) {
                   variant="ghost"
                   className={cn(
                     "text-slate-400 hover:text-white hover:bg-slate-800",
-                    isActive(href) && "text-white bg-slate-800"
+                    isActive(href) && "text-white bg-slate-800",
                   )}
                   size="sm"
                 >
@@ -107,7 +103,10 @@ export default function Layout({ children }: LayoutProps) {
                   <span className="hidden sm:inline">Account</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-slate-800 border-slate-700">
+              <DropdownMenuContent
+                align="end"
+                className="bg-slate-800 border-slate-700"
+              >
                 <DropdownMenuItem
                   onClick={handleLogout}
                   className="text-slate-200 cursor-pointer"
@@ -129,19 +128,18 @@ export default function Layout({ children }: LayoutProps) {
                   <Menu className="w-5 h-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="bg-slate-900 border-slate-800">
+              <SheetContent
+                side="left"
+                className="bg-slate-900 border-slate-800"
+              >
                 <nav className="space-y-2 mt-8">
                   {navItems.map(({ label, href, icon: Icon }) => (
-                    <Link
-                      key={href}
-                      to={href}
-                      onClick={() => setIsOpen(false)}
-                    >
+                    <Link key={href} to={href} onClick={() => setIsOpen(false)}>
                       <Button
                         variant="ghost"
                         className={cn(
                           "w-full justify-start text-slate-400 hover:text-white hover:bg-slate-800",
-                          isActive(href) && "text-white bg-slate-800"
+                          isActive(href) && "text-white bg-slate-800",
                         )}
                       >
                         <Icon className="w-4 h-4 mr-2" />
@@ -157,9 +155,7 @@ export default function Layout({ children }: LayoutProps) {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        {children}
-      </main>
+      <main className="max-w-7xl mx-auto px-4 py-8">{children}</main>
     </div>
   );
 }

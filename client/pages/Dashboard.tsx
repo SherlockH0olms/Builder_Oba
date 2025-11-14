@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { apiClient, DashboardStats } from "@/lib/api";
@@ -15,7 +21,21 @@ import {
   Loader2,
   AlertCircle,
 } from "lucide-react";
-import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import {
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 export default function Dashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -37,7 +57,8 @@ export default function Dashboard() {
       const data = await apiClient.getDashboardStats();
       setStats(data);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to load dashboard";
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to load dashboard";
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
@@ -61,9 +82,18 @@ export default function Dashboard() {
           <CardContent className="pt-6 flex gap-4">
             <AlertCircle className="w-6 h-6 text-red-400 flex-shrink-0" />
             <div>
-              <p className="text-red-200 font-semibold">Failed to load dashboard</p>
-              <p className="text-red-300 text-sm">Unable to connect to the server</p>
-              <Button onClick={fetchStats} variant="outline" size="sm" className="mt-4">
+              <p className="text-red-200 font-semibold">
+                Failed to load dashboard
+              </p>
+              <p className="text-red-300 text-sm">
+                Unable to connect to the server
+              </p>
+              <Button
+                onClick={fetchStats}
+                variant="outline"
+                size="sm"
+                className="mt-4"
+              >
                 Try Again
               </Button>
             </div>
@@ -74,14 +104,34 @@ export default function Dashboard() {
   }
 
   const sentimentData = [
-    { name: "Positive", value: stats.sentiment_distribution.positive, fill: "#10b981" },
-    { name: "Neutral", value: stats.sentiment_distribution.neutral, fill: "#6b7280" },
-    { name: "Negative", value: stats.sentiment_distribution.negative, fill: "#ef4444" },
+    {
+      name: "Positive",
+      value: stats.sentiment_distribution.positive,
+      fill: "#10b981",
+    },
+    {
+      name: "Neutral",
+      value: stats.sentiment_distribution.neutral,
+      fill: "#6b7280",
+    },
+    {
+      name: "Negative",
+      value: stats.sentiment_distribution.negative,
+      fill: "#ef4444",
+    },
   ];
 
   const channelData = [
-    { name: "Telegram", value: stats.channel_distribution.telegram, fill: "#3b82f6" },
-    { name: "WhatsApp", value: stats.channel_distribution.whatsapp, fill: "#10b981" },
+    {
+      name: "Telegram",
+      value: stats.channel_distribution.telegram,
+      fill: "#3b82f6",
+    },
+    {
+      name: "WhatsApp",
+      value: stats.channel_distribution.whatsapp,
+      fill: "#10b981",
+    },
   ];
 
   const StatCard = ({
@@ -102,7 +152,9 @@ export default function Dashboard() {
         <div className="flex items-start justify-between">
           <div className="space-y-2">
             <p className="text-sm font-medium text-slate-400">{title}</p>
-            <p className="text-3xl font-bold text-white">{value.toLocaleString()}</p>
+            <p className="text-3xl font-bold text-white">
+              {value.toLocaleString()}
+            </p>
             <p className="text-xs text-slate-500">{description}</p>
           </div>
           <div className="p-3 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-lg">
@@ -126,9 +178,16 @@ export default function Dashboard() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-            <p className="text-slate-400 mt-1">Welcome back! Here's your data overview</p>
+            <p className="text-slate-400 mt-1">
+              Welcome back! Here's your data overview
+            </p>
           </div>
-          <Button onClick={fetchStats} variant="outline" size="sm" className="bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700">
+          <Button
+            onClick={fetchStats}
+            variant="outline"
+            size="sm"
+            className="bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700"
+          >
             Refresh
           </Button>
         </div>
@@ -168,7 +227,9 @@ export default function Dashboard() {
           {/* Sentiment Distribution */}
           <Card className="border-slate-800 bg-slate-900">
             <CardHeader>
-              <CardTitle className="text-white">Sentiment Distribution</CardTitle>
+              <CardTitle className="text-white">
+                Sentiment Distribution
+              </CardTitle>
               <CardDescription>Message sentiment analysis</CardDescription>
             </CardHeader>
             <CardContent>
@@ -199,7 +260,10 @@ export default function Dashboard() {
               </ResponsiveContainer>
               <div className="space-y-2 mt-4">
                 {sentimentData.map((item) => (
-                  <div key={item.name} className="flex items-center justify-between text-sm">
+                  <div
+                    key={item.name}
+                    className="flex items-center justify-between text-sm"
+                  >
                     <div className="flex items-center gap-2">
                       <div
                         className="w-3 h-3 rounded-full"
@@ -207,7 +271,9 @@ export default function Dashboard() {
                       />
                       <span className="text-slate-400">{item.name}</span>
                     </div>
-                    <span className="text-white font-semibold">{item.value.toLocaleString()}</span>
+                    <span className="text-white font-semibold">
+                      {item.value.toLocaleString()}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -248,7 +314,10 @@ export default function Dashboard() {
               </ResponsiveContainer>
               <div className="space-y-2 mt-4">
                 {channelData.map((item) => (
-                  <div key={item.name} className="flex items-center justify-between text-sm">
+                  <div
+                    key={item.name}
+                    className="flex items-center justify-between text-sm"
+                  >
                     <div className="flex items-center gap-2">
                       <div
                         className="w-3 h-3 rounded-full"
@@ -256,7 +325,9 @@ export default function Dashboard() {
                       />
                       <span className="text-slate-400">{item.name}</span>
                     </div>
-                    <span className="text-white font-semibold">{item.value.toLocaleString()}</span>
+                    <span className="text-white font-semibold">
+                      {item.value.toLocaleString()}
+                    </span>
                   </div>
                 ))}
               </div>

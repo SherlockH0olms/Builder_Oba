@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { toast } from "sonner";
 import { apiClient } from "@/lib/api";
 import { Loader2 } from "lucide-react";
@@ -29,7 +35,8 @@ export default function Login() {
       toast.success("Login successful!");
       navigate("/dashboard");
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Login failed";
+      const errorMessage =
+        error instanceof Error ? error.message : "Login failed";
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
@@ -61,13 +68,17 @@ export default function Login() {
               <p className="text-sm text-slate-400">Data Intelligence</p>
             </div>
           </div>
-          <p className="text-slate-400">Manage your messages and customers efficiently</p>
+          <p className="text-slate-400">
+            Manage your messages and customers efficiently
+          </p>
         </div>
 
         <Card className="border-slate-700 bg-slate-800">
           <CardHeader className="space-y-1">
             <CardTitle className="text-white">Sign in</CardTitle>
-            <CardDescription>Enter your credentials to access the dashboard</CardDescription>
+            <CardDescription>
+              Enter your credentials to access the dashboard
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
