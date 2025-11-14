@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -13,12 +19,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { apiClient, Message } from "@/lib/api";
-import {
-  Loader2,
-  Trash2,
-  MessageCircle,
-  TrendingUp,
-} from "lucide-react";
+import { Loader2, Trash2, MessageCircle, TrendingUp } from "lucide-react";
 
 export default function Messages() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -43,7 +44,8 @@ export default function Messages() {
       const data = await apiClient.getMessages();
       setMessages(data);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to load messages";
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to load messages";
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
@@ -51,7 +53,8 @@ export default function Messages() {
   };
 
   const filteredMessages = messages.filter((msg) => {
-    const channelMatch = channelFilter === "all" || msg.channel === channelFilter;
+    const channelMatch =
+      channelFilter === "all" || msg.channel === channelFilter;
     const statusMatch = statusFilter === "all" || msg.status === statusFilter;
     return channelMatch && statusMatch;
   });
@@ -62,7 +65,8 @@ export default function Messages() {
       setMessages(messages.filter((m) => m.id !== id));
       toast.success("Message deleted successfully");
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to delete message";
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to delete message";
       toast.error(errorMessage);
     }
   };
@@ -111,7 +115,8 @@ export default function Messages() {
         <div>
           <h1 className="text-3xl font-bold text-white">Messages</h1>
           <p className="text-slate-400 mt-1">
-            {filteredMessages.length} message{filteredMessages.length !== 1 ? "s" : ""} found
+            {filteredMessages.length} message
+            {filteredMessages.length !== 1 ? "s" : ""} found
           </p>
         </div>
 
@@ -119,7 +124,9 @@ export default function Messages() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card className="border-slate-800 bg-slate-900">
             <CardContent className="pt-4">
-              <label className="text-sm text-slate-400 block mb-2">Channel</label>
+              <label className="text-sm text-slate-400 block mb-2">
+                Channel
+              </label>
               <Select value={channelFilter} onValueChange={setChannelFilter}>
                 <SelectTrigger className="bg-slate-800 border-slate-700 text-white">
                   <SelectValue />
@@ -135,7 +142,9 @@ export default function Messages() {
 
           <Card className="border-slate-800 bg-slate-900">
             <CardContent className="pt-4">
-              <label className="text-sm text-slate-400 block mb-2">Status</label>
+              <label className="text-sm text-slate-400 block mb-2">
+                Status
+              </label>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="bg-slate-800 border-slate-700 text-white">
                   <SelectValue />
@@ -177,38 +186,65 @@ export default function Messages() {
             {filteredMessages.length === 0 ? (
               <div className="text-center py-12">
                 <MessageCircle className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                <p className="text-slate-400">No messages found with current filters</p>
+                <p className="text-slate-400">
+                  No messages found with current filters
+                </p>
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-slate-700">
-                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">From</th>
-                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">Channel</th>
-                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">Message</th>
-                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">Sentiment</th>
-                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">Status</th>
-                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">Date</th>
-                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">Actions</th>
+                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                        From
+                      </th>
+                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                        Channel
+                      </th>
+                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                        Message
+                      </th>
+                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                        Sentiment
+                      </th>
+                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                        Status
+                      </th>
+                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                        Date
+                      </th>
+                      <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {filteredMessages.map((message) => (
-                      <tr key={message.id} className="border-b border-slate-800 hover:bg-slate-800/50">
+                      <tr
+                        key={message.id}
+                        className="border-b border-slate-800 hover:bg-slate-800/50"
+                      >
                         <td className="py-3 px-4">
                           <div>
-                            <p className="text-white font-medium">{message.sender_name}</p>
-                            <p className="text-xs text-slate-500">{message.sender_id}</p>
+                            <p className="text-white font-medium">
+                              {message.sender_name}
+                            </p>
+                            <p className="text-xs text-slate-500">
+                              {message.sender_id}
+                            </p>
                           </div>
                         </td>
                         <td className="py-3 px-4">
                           <Badge variant="outline" className="border-slate-700">
-                            {message.channel === "telegram" ? "��� Telegram" : "💬 WhatsApp"}
+                            {message.channel === "telegram"
+                              ? "��� Telegram"
+                              : "💬 WhatsApp"}
                           </Badge>
                         </td>
                         <td className="py-3 px-4">
-                          <p className="text-slate-300 truncate max-w-xs">{message.message_text}</p>
+                          <p className="text-slate-300 truncate max-w-xs">
+                            {message.message_text}
+                          </p>
                         </td>
                         <td className="py-3 px-4">
                           <Badge
@@ -219,7 +255,10 @@ export default function Messages() {
                           </Badge>
                         </td>
                         <td className="py-3 px-4">
-                          <Badge variant="outline" className={`${getStatusColor(message.status)}`}>
+                          <Badge
+                            variant="outline"
+                            className={`${getStatusColor(message.status)}`}
+                          >
                             {message.status}
                           </Badge>
                         </td>

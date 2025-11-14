@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
@@ -38,7 +44,8 @@ export default function Customers() {
       const data = await apiClient.getCustomers();
       setCustomers(data);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to load customers";
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to load customers";
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
@@ -52,7 +59,8 @@ export default function Customers() {
         setCustomers(customers.filter((c) => c.id !== id));
         toast.success("Customer deleted successfully");
       } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Failed to delete customer";
+        const errorMessage =
+          error instanceof Error ? error.message : "Failed to delete customer";
         toast.error(errorMessage);
       }
     }
@@ -75,7 +83,8 @@ export default function Customers() {
           <div>
             <h1 className="text-3xl font-bold text-white">Customers</h1>
             <p className="text-slate-400 mt-1">
-              {customers.length} customer{customers.length !== 1 ? "s" : ""} in total
+              {customers.length} customer{customers.length !== 1 ? "s" : ""} in
+              total
             </p>
           </div>
           <div className="flex gap-2">
@@ -104,7 +113,9 @@ export default function Customers() {
               <Card className="border-slate-800 bg-slate-900">
                 <CardContent className="pt-6">
                   <p className="text-sm text-slate-400 mb-1">Total Customers</p>
-                  <p className="text-2xl font-bold text-white">{customers.length}</p>
+                  <p className="text-2xl font-bold text-white">
+                    {customers.length}
+                  </p>
                 </CardContent>
               </Card>
               <Card className="border-slate-800 bg-slate-900">
@@ -137,30 +148,49 @@ export default function Customers() {
             <Card className="border-slate-800 bg-slate-900">
               <CardHeader>
                 <CardTitle className="text-white">Customers List</CardTitle>
-                <CardDescription>Manage all your customers and their information</CardDescription>
+                <CardDescription>
+                  Manage all your customers and their information
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-slate-700">
-                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">Name</th>
-                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">Phone</th>
-                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">Email</th>
-                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">Channels</th>
-                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">Joined</th>
-                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">Actions</th>
+                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                          Name
+                        </th>
+                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                          Phone
+                        </th>
+                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                          Email
+                        </th>
+                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                          Channels
+                        </th>
+                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                          Joined
+                        </th>
+                        <th className="text-left py-3 px-4 text-slate-400 font-semibold">
+                          Actions
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {customers.map((customer) => (
-                        <tr key={customer.id} className="border-b border-slate-800 hover:bg-slate-800/50">
+                        <tr
+                          key={customer.id}
+                          className="border-b border-slate-800 hover:bg-slate-800/50"
+                        >
                           <td className="py-3 px-4">
                             <div className="flex items-center gap-3">
                               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white text-xs font-bold">
                                 {customer.name.charAt(0)}
                               </div>
-                              <p className="text-white font-medium">{customer.name}</p>
+                              <p className="text-white font-medium">
+                                {customer.name}
+                              </p>
                             </div>
                           </td>
                           <td className="py-3 px-4">
@@ -187,20 +217,29 @@ export default function Customers() {
                           <td className="py-3 px-4">
                             <div className="flex gap-2">
                               {customer.telegram_id && (
-                                <Badge variant="outline" className="border-blue-500/50 bg-blue-500/10 text-blue-300">
+                                <Badge
+                                  variant="outline"
+                                  className="border-blue-500/50 bg-blue-500/10 text-blue-300"
+                                >
                                   <MessageCircle className="w-3 h-3 mr-1" />
                                   TG
                                 </Badge>
                               )}
                               {customer.whatsapp_id && (
-                                <Badge variant="outline" className="border-green-500/50 bg-green-500/10 text-green-300">
+                                <Badge
+                                  variant="outline"
+                                  className="border-green-500/50 bg-green-500/10 text-green-300"
+                                >
                                   <MessageCircle className="w-3 h-3 mr-1" />
                                   WA
                                 </Badge>
                               )}
-                              {!customer.telegram_id && !customer.whatsapp_id && (
-                                <span className="text-slate-500 text-xs">None</span>
-                              )}
+                              {!customer.telegram_id &&
+                                !customer.whatsapp_id && (
+                                  <span className="text-slate-500 text-xs">
+                                    None
+                                  </span>
+                                )}
                             </div>
                           </td>
                           <td className="py-3 px-4 text-slate-400 text-xs">

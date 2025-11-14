@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { apiClient, DashboardStats } from "@/lib/api";
-import {
-  Loader2,
-  BarChart3,
-  Calendar,
-  TrendingUp,
-} from "lucide-react";
+import { Loader2, BarChart3, Calendar, TrendingUp } from "lucide-react";
 import {
   BarChart,
   Bar,
@@ -52,7 +53,8 @@ export default function Analytics() {
       const data = await apiClient.getDashboardStats();
       setStats(data);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to load analytics";
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to load analytics";
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
@@ -93,9 +95,21 @@ export default function Analytics() {
   ];
 
   const sentimentData = [
-    { name: "Positive", value: stats.sentiment_distribution.positive, fill: "#10b981" },
-    { name: "Neutral", value: stats.sentiment_distribution.neutral, fill: "#6b7280" },
-    { name: "Negative", value: stats.sentiment_distribution.negative, fill: "#ef4444" },
+    {
+      name: "Positive",
+      value: stats.sentiment_distribution.positive,
+      fill: "#10b981",
+    },
+    {
+      name: "Neutral",
+      value: stats.sentiment_distribution.neutral,
+      fill: "#6b7280",
+    },
+    {
+      name: "Negative",
+      value: stats.sentiment_distribution.negative,
+      fill: "#ef4444",
+    },
   ];
 
   const intentData = [
@@ -135,7 +149,9 @@ export default function Analytics() {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold text-white">Analytics</h1>
-          <p className="text-slate-400 mt-1">Detailed insights about your messages and customers</p>
+          <p className="text-slate-400 mt-1">
+            Detailed insights about your messages and customers
+          </p>
         </div>
 
         {/* Date Range Filter */}
@@ -149,7 +165,9 @@ export default function Analytics() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <Label className="text-slate-400 text-sm block mb-2">Start Date</Label>
+                <Label className="text-slate-400 text-sm block mb-2">
+                  Start Date
+                </Label>
                 <Input
                   type="date"
                   value={startDate}
@@ -158,7 +176,9 @@ export default function Analytics() {
                 />
               </div>
               <div>
-                <Label className="text-slate-400 text-sm block mb-2">End Date</Label>
+                <Label className="text-slate-400 text-sm block mb-2">
+                  End Date
+                </Label>
                 <Input
                   type="date"
                   value={endDate}
@@ -212,7 +232,9 @@ export default function Analytics() {
           <Card className="border-slate-800 bg-slate-900">
             <CardHeader>
               <CardTitle className="text-white">Daily Trends</CardTitle>
-              <CardDescription>Messages and new customers per day</CardDescription>
+              <CardDescription>
+                Messages and new customers per day
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -251,7 +273,9 @@ export default function Analytics() {
           {/* Sentiment Distribution */}
           <Card className="border-slate-800 bg-slate-900">
             <CardHeader>
-              <CardTitle className="text-white">Sentiment Distribution</CardTitle>
+              <CardTitle className="text-white">
+                Sentiment Distribution
+              </CardTitle>
               <CardDescription>Message sentiment analysis</CardDescription>
             </CardHeader>
             <CardContent>
@@ -282,7 +306,10 @@ export default function Analytics() {
               </ResponsiveContainer>
               <div className="space-y-2 mt-4">
                 {sentimentData.map((item) => (
-                  <div key={item.name} className="flex items-center justify-between text-sm">
+                  <div
+                    key={item.name}
+                    className="flex items-center justify-between text-sm"
+                  >
                     <div className="flex items-center gap-2">
                       <div
                         className="w-3 h-3 rounded-full"
@@ -290,7 +317,9 @@ export default function Analytics() {
                       />
                       <span className="text-slate-400">{item.name}</span>
                     </div>
-                    <span className="text-white font-semibold">{item.value.toLocaleString()}</span>
+                    <span className="text-white font-semibold">
+                      {item.value.toLocaleString()}
+                    </span>
                   </div>
                 ))}
               </div>
